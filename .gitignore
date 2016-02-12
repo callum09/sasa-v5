@@ -1,0 +1,16 @@
+*.log
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+wp-config.php
+public_html/wp-content/advanced-cache.php
+public_html/wp-content/backup-db/
+public_html/wp-content/backups/
+public_html/wp-content/blogs.dir/
+public_html/wp-content/cache/
+public_html/wp-content/upgrade/
+public_html/wp-content/uploads/
+public_html/wp-content/ai1wm-backups/
+public_html/wp-content/wp-cache-config.php
+.DS_Store
+._*

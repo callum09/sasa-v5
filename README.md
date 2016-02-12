@@ -1,2 +1,2 @@
-# sasa-v5
-Development on new Jupiter Theme
+# sasa-site
+Wordpress brochure site for Sugar Association of SA

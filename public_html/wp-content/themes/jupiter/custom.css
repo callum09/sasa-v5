@@ -1,0 +1,610 @@
+/*=======================================================
+                    THEME OVERRIDES
+=======================================================*/
+/*HEADER*/
+/*Allow for doubled lined header*/
+#mk-header .header-style-1.header-style-1.header-sticky-ready .menu-hover-style-4 .main-navigation-ul > li > a,
+#mk-header .menu-hover-style-4 .main-navigation-ul>li.menu-item>a.menu-item-link {
+    margin-left: 1px;
+    line-height: 20px !important;
+    display: table-cell;
+    vertical-align: middle;
+    text-transform: lowercase;
+}
+
+/*Shortened second menu item*/
+.main-navigation-ul li:nth-child(2) {
+    width:150px;
+}
+    
+#theme-page h2 {
+    margin: 0;
+}
+
+/*Hide all theme title underlines*/
+.mk-page-title-box .mk-page-title-box-title.mk-page-title-box-title--underline:after {
+    display: none;
+}
+
+/*Hide post titles and meta for base articles*/
+.category-articles .blog-single-title,
+.blog-single-meta {
+    display: none;
+}
+
+/*Hide title pattern universally, let what needs to be dead - be dead.*/
+.mk-fancy-title.pattern-style {
+    display: none;
+}
+
+.mk-list-styles {
+    margin-bottom: 0px !important;
+}
+
+#mk-theme-container #mk-header {
+    border-bottom: 0;
+}
+
+/*=======================================================
+                    HELPER CLASSES
+=======================================================*/
+
+.full-height {
+   max-height:450px !important;
+}
+
+.full-width-landing-page .vc_row-fluid.page-section-fullwidth.page-section-content {
+    margin: 0 -20px;
+}
+
+.pull-up {
+    margin-top: -2px;
+}
+
+/*=======================================================
+             LANDING PAGE GENERAL STYLING
+=======================================================*/
+
+.block-carousel > div {
+    min-height :250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+    transition: opacity 0.1s ease-in;
+    -moz-transition: opacity 0.1s ease-in;
+    -ms-transition: opacity 0.1s ease-in;
+    -o-transition: opacity 0.1s ease-in;
+    -webkit-transition: opacity 0.1s ease-in;
+    width: 20% !important;
+ 
+}
+
+.block-carousel > div:hover {
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+    -moz-transition: opacity 0.2s ease-in;
+    -ms-transition: opacity 0.2s ease-in;
+    -o-transition: opacity 0.2s ease-in;
+    -webkit-transition: opacity 0.2s ease-in;
+    cursor: pointer;
+    
+}
+
+.block-carousel > div:focus {
+    opacity: 1;
+}
+
+#theme-page .block-carousel > div h6 {
+    text-align: center;
+    margin-bottom: 8px;
+    line-height: 12px;
+}
+
+
+#theme-page .block-carousel > div a .wpb_single_image {
+    margin-bottom: 0px;
+}
+
+.title_section .mk-image-inner,
+.title_section img {
+    width: 100%;
+    height: 100%;
+}
+
+.full-height {
+    height: 520px;
+}
+
+/*Testimonials*/
+#theme-page .testimonials img {
+    width: 141px;
+    margin-top: 15px;
+}
+
+#theme-page .mk-moon-quotes-left,
+#theme-page .mk-moon-quotes-right {
+    display: none;
+}
+
+/*Energy columns*/
+#theme-page .energy-columns {
+    height: 220px !important;
+    padding: 0 50px;
+}
+
+.energy-columns-mobile {
+    min-height:250px !important;
+}
+
+.testimonials #sasa_btn:after {
+    margin-left: 10px;
+}
+/*=======================================================
+                SASA BUTTONS/TOGGLES
+=======================================================*/
+
+/*Inline toggle*/
+#theme-page .sasa_btn .mk-toggle-pane{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.sasa_btn,
+#theme-page .sasa_btn .mk-toggle-title {
+    font-family: 'Marck Script';
+    font-weight: 700;
+    font-size: 18px;
+    transition: 0.2s color;
+}
+
+#theme-page .sasa_btn .mk-toggle-title {
+    width: 150px;
+    color: #569ec5;
+}
+
+.sasa_btn {
+    color: #c75b12;
+}
+
+.sasa_btn p {
+    font-family: "ProximaNovaSoft-Regular";
+    font-weight: 100;
+}
+
+.sasa_btn,
+#theme-page .sasa_btn .mk-toggle-title:hover {
+    transition: 0.2s color;
+}
+
+#theme-page .sasa_btn .mk-toggle-title:hover {
+    color: #236c93;
+}
+
+.sasa_btn:hover {
+    color: #a85218;
+}
+
+#theme-page .mk-toggle.simple-style .mk-toggle-title:before {
+    content: url(../../uploads/custom_icons/cta_triangle.png);
+}
+
+/*sasa button*/
+#sasa_btn {
+    padding: 0 !important;
+    border: none !important;
+    border-width: 0 !important;
+    border-style: none !important;
+    letter-spacing: 0px;
+}
+
+#sasa_btn:hover {
+    background-color: rgba(255, 255, 255, 0) !important; 
+}
+
+.mk-contact-form-wrapper.corporate-style .mk-form-row .mk-progress-button-content:after,
+#sasa_btn:after {
+		content: "\f0da";
+        display: inline-block;
+        font-family: "FontAwesome";
+        font-size: 14px;
+}
+
+.testimonials #sasa_btn {
+    margin-top: 20px !important;
+}
+
+.mk-contact-form-wrapper.corporate-style .mk-form-row .mk-progress-button-content {
+    text-transform: lowercase;
+    font-size: 18px;
+    background-color: rgba(255, 255, 255, 0) !important; 
+    opacity: 1;
+    transition: 0.2s opacity;
+}
+
+.mk-contact-form-wrapper.corporate-style .mk-form-row .mk-progress-button-content:hover {
+    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0) !important; 
+    transition: 0.2s opacity;
+}
+
+.sasa_btn, 
+#theme-page .sasa_btn .mk-toggle-title {
+    font-size: 22px !important;
+}
+
+#health-columns .health-custombox .sasa_btn {
+        font-size: 18px !important;
+        color: white;
+}
+
+/*=======================================================
+                    TITLE SECTIONS
+=======================================================*/
+
+.sasa-title {
+    width: 350px;
+}
+
+#energy-columns .full-style .animated-column-icon,
+.full-style .animated-column-title:after{
+    display: none;
+}
+.full-style .animated-column-title {
+    text-transform: lowercase;
+    font-weight: 400;
+}
+
+
+#food-columns p {
+    max-width: 300px;
+    margin: auto;
+}
+
+#health-columns .health-custombox {
+    padding: 15%;
+    min-height: 180px;
+    max-height: 180px;
+    overflow: hidden;
+}
+
+.mk-page-title-box-title {
+    margin-top: 50px;
+}
+
+#health .mk-page-title-box-title {
+    margin-top: 0;
+}
+
+#theme-page .you-health-sugar-title h3 {
+    color: #472951;
+}
+
+/*=======================================================
+                    MASTER SLIDER  
+=======================================================*/
+
+#spotlight-text p {
+	color: white;
+    font-size: 55px;
+}
+
+#theme-page #spotlight-text h1 {
+    
+    font-size: 90px; 
+}
+
+/*=======================================================
+                     SIDE BAR  
+=======================================================*/
+
+.widget_nav_menu ul li a {
+    padding: 6px 0;
+}
+
+.widget_nav_menu ul.menu {
+    border: 0;
+}
+
+#mk-sidebar .sidebar-wrapper .widgettitle {
+    text-transform: lowercase;
+}
+
+.sidebar-wrapper .screen-reader-text {
+	display: none;
+}
+/*=======================================================
+                     FOOTER  
+=======================================================*/
+
+
+/*Hide the dates in the sections menu in the footer*/
+#recent_posts-4 .post-list-meta {
+    display:none !important;
+}
+
+/*=======================================================
+                INDIVIDUAL POSTS
+=======================================================*/
+
+/*You, Health & Sugar*/
+#theme-page .you-health-sugar-wrapper strong {
+    color: #cf3a4b !important;
+}
+
+#theme-page .you-health-sugar-wrapper .mk-fancy-table th {
+    background-color: #cf3a4b !important;
+}
+
+
+/*You, Life & Sugar*/
+#theme-page .you-life-sugar-wrapper strong {
+    color: #2d904b !important;
+}
+
+#theme-page .you-life-sugar-wrapper .healthy-tips li {
+    margin-top: 20px;
+}
+
+
+/*You, Diet & Sugar*/
+#theme-page .you-diet-sugar-wrapper strong {
+    color:#472951 !important;
+}
+
+#theme-page .you-diet-sugar-wrapper .mk-fancy-table th {
+    text-transform: none;
+}
+
+/*=======================================================
+            INDIVIDUAL MODULES
+=======================================================*/
+
+/*calculator styles - Javascript for this module is found under the theme options admin in wordpress backend admin. Theme Options > Advanced > Custom JS */
+
+.calculator-wrapper input {
+  
+  width: 100%;
+  height: 40px;
+  font-size: larger;
+  text-indent: 10px; 
+}
+
+.calculator-wrapper button {
+  width: 100%;
+  height: 40px;
+  color: #cf3a4b;
+  font-weight: bold;
+  margin-top: 15px; 
+}
+
+.calculator-wrapper p {
+  padding: 0;
+  margin: 20px 0; 
+  color: #fff !important;
+}
+
+.calculator-wrapper h1 {
+   font-size: 40px !important;
+ }
+
+.calculator-wrapper {
+  width: 100%;
+  margin: 20px 0;
+  transform: scale(.8,.8);
+}
+
+.calculator-container {
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  width: 100%;
+  max-width: 430px;
+  padding: 50px;
+  margin: auto;
+  max-height: 565px;
+  overflow: hidden;
+  background: #cf3a4b;
+  -webkit-transition: all .1s ease;
+  -oz-transition: all .1s ease;
+  -o-transition: all .1s ease;
+  transition: all .1s ease; 
+  font-size: 12px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: rgba(47, 79, 79, 0.37) 3px 4px 7px;
+}
+
+.calculator-container .underline {
+  text-decoration: underline; }
+
+.calculator-container p#theanswer {
+  transform: scale(0, 0);
+  text-align: center;
+  font-size: xx-large;
+  margin-top: 30px; 
+}
+
+/*Animate result - scale up. Original starting scale set in .calculator-wrapper*/
+@keyframes scale {
+  to {
+    transform: scale(1, 1); } 
+}
+
+/* // end calculator styles*/
+
+/*=======================================================
+                     MEDIA QUARIES  
+=======================================================*/
+
+/*MOBILE*/
+
+@media screen and (max-width: 767px) {
+    #theme-page #spotlight-text h1 {
+        font-size: 36px;
+    }
+    
+    #mk-theme-container #theme-page h1 {
+	   font-size: 36px;
+    }
+    
+    #theme-page .mk-text-block h2 {
+       font-size: 28px;
+    }
+    
+    .mk-title-box {
+        padding-top: 40px;
+        margin: 0 !important;
+    }
+        
+    .hide-on-mobile {
+        display: none;
+    }
+    
+    #theme-page .mk-page-title-box {
+        height: 300px;
+    }
+   
+    #sasa_btn {
+        margin: auto;
+        white-space: nowrap;
+    }
+    
+    .double-column #sasa_btn {
+        margin: auto auto 40px auto;
+    }
+    
+    .life.double-column #sasa_btn {
+	   margin: auto auto 0px auto !important;
+    }
+    
+    #theme-page .mk-button-align.left {
+        text-align: left !important;
+    }
+    
+    .full-height {
+        height: 250px;
+        margin: 0 -10px;
+    }
+    
+    #health .mk-page-title-box-content {
+        padding: 40px 0;
+    }
+    
+    #health-columns .health-custombox {
+        background-image: none;
+        background-color: #6d48c1;
+        margin: 0 -10px;
+    }
+    
+    #mk-sidebar {
+	   display: none;
+    }
+    
+    #mk-theme-container .mk-footer-logo{
+	   padding: 20px 20px 0 20px;
+    }
+    
+    #theme-page .landing-page-spotlight .mk-page-title-box {
+        height: 250px !important;
+    }
+    
+    #health-columns .health-custombox {
+        max-height: 220px;
+}
+
+    #health-columns .health-custombox .sasa_btn {
+        margin-bottom: 40px;
+    }
+}
+    
+ /*TABLET PORTRAIT*/
+
+@media screen and (min-width: 768px) and (max-width: 959px) {
+    .hide-on-tablet {
+        display: none;
+    }
+    
+    #theme-page .vc_col-sm-6 {
+        width: 100%
+    }
+    
+    .sasa-title {
+        width: 100%;
+    }
+    
+    #health-columns .vc_col-sm-3 {
+        width: 50%; 
+    }
+    
+    .mk-page-section .page-section-fullwidth {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+    
+    #mk-sidebar {
+	   display: none;
+    }
+    
+    #mk-theme-container .mk-footer-logo{
+	   padding: 20px 20px 0 20px;
+    }
+    
+}
+
+/*Anything smaller than small laptop*/
+@media screen and (max-width:1280px) {
+    
+/*You, health & sugar landing page checkered blocks*/
+    #theme-page tablet-text p {
+        font-size:10px !important;
+    } 
+    
+    #theme-page tablet-text h2 {
+        font-size:smaller !important;
+    }
+    
+    #theme-page .health-custombox h2 {
+        font-size: 24px;
+    }
+
+    #theme-page #health-columns .health-custombox .sasa_btn {
+        font-size: 16px !important;
+        margin-left: 3%;
+    }
+    
+    #theme-page .landing-page-spotlight .mk-page-title-box {
+	   background-position: center top;
+       height: 400px;
+    }
+    
+    #health-columns {
+        margin: 0px -5px;
+    }
+    
+    #health-columns .health-custombox {
+        padding: 8%;
+    }
+    
+}
+
+/*Anything smaller then portrait tablet*/
+@media screen and (max-width:959px) {
+
+    #energy-columns .vc_col-sm-4 {
+        width: 100%;
+        min-height: 260px !important;
+        max-height: 260px !important;
+        padding-bottom: 0px !important;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+
+}
+
+/*Desktop*/
+@media screen and (min-width: 1280px) {
+    
+    .landing-page-spotlight .mk-page-title-box-title {
+        margin-top:100px !important;
+        margin-bottom:0;
+        padding-bottom:0;
+    }
+}
