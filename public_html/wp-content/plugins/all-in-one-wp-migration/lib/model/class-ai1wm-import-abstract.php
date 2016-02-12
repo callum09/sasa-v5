@@ -31,6 +31,11 @@ abstract class Ai1wm_Import_Abstract {
 
 	public function __construct( array $args = array() ) {
 		$this->args = $args;
+
+		// HTTP resolve
+		if ( $this->args['method'] === 'import' ) {
+			Ai1wm_Http::resolve( admin_url( 'admin-ajax.php?action=ai1wm_resolve' ) );
+		}
 	}
 
 	/**
@@ -41,10 +46,8 @@ abstract class Ai1wm_Import_Abstract {
 	public function start() {
 		// Set default progress
 		Ai1wm_Status::set( array(
-			'total'     => 0,
-			'processed' => 0,
-			'type'      => 'info',
-			'message'   => __( 'Unpacking archive...', AI1WM_PLUGIN_NAME ),
+			'type'    => 'info',
+			'message' => __( 'Unpacking archive...', AI1WM_PLUGIN_NAME ),
 		) );
 
 		// Open the archive file for reading
@@ -146,18 +149,17 @@ abstract class Ai1wm_Import_Abstract {
 		// Open the archive file for reading
 		$archive = new Ai1wm_Extractor( $this->storage()->archive() );
 
-		// Unpack package.json and database.sql files
+		// Get number of files
 		$total = $archive->get_number_of_files();
 
-		// Substract database.sql and package.json
-		$total -= 2;
-
-		// close the archive file
+		// Close the archive file
 		$archive->close();
+
+		// Set total
+		$this->args['total'] = $total;
 
 		// Set progress
 		Ai1wm_Status::set( array(
-			'total'   => $total,
 			'type'    => 'info',
 			'message' => __( 'Done retrieving a list of all WordPress files.', AI1WM_PLUGIN_NAME ),
 		) );
@@ -185,16 +187,44 @@ abstract class Ai1wm_Import_Abstract {
 	 * @return void
 	 */
 	public function content() {
-		// Total and processed files
-		$total     = Ai1wm_Status::get( 'total' );
-		$processed = Ai1wm_Status::get( 'processed' );
-		$progress  = (int) ( ( $processed / $total ) * 100 ) or $progress = 4;
+		// Set content offset
+		if ( isset( $this->args['content_offset'] ) ) {
+			$content_offset = $this->args['content_offset'];
+		} else {
+			$content_offset = 0;
+		}
+
+		// Set archive offset
+		if ( isset( $this->args['archive_offset']) ) {
+			$archive_offset = $this->args['archive_offset'];
+		} else {
+			$archive_offset = 0;
+		}
+
+		// Set total files
+		if ( isset( $this->args['total'] ) ) {
+			$total = $this->args['total'];
+		} else {
+			$total = 1;
+		}
+
+		// Set processed files
+		if ( isset( $this->args['processed'] ) ) {
+			$processed = $this->args['processed'];
+		} else {
+			$processed = 0;
+		}
+
+		// What percent of files have we processed?
+		$progress = (int) ( ( $processed / $total ) * 100 );
 
 		// Set progress
-		Ai1wm_Status::set( array(
-			'type'    => 'info',
-			'message' => sprintf( __( 'Restoring %d files...<br />%d%% complete', AI1WM_PLUGIN_NAME ), $total, $progress ),
-		) );
+		if ( empty( $content_offset ) ) {
+			Ai1wm_Status::set( array(
+				'type'    => 'info',
+				'message' => sprintf( __( 'Restoring %d files...<br />%.2f%% complete', AI1WM_PLUGIN_NAME ), $total, $progress ),
+			) );
+		}
 
 		// Start time
 		$start = microtime( true );
@@ -206,15 +236,45 @@ abstract class Ai1wm_Import_Abstract {
 		$archive = new Ai1wm_Extractor( $this->storage()->archive() );
 
 		// Set the file pointer to the one that we have saved
-		$archive->set_file_pointer( null, $this->pointer() );
+		$archive->set_file_pointer( null, $archive_offset );
 
 		while ( $archive->has_not_reached_eof() ) {
 			try {
-				// Extract a file from archive to wp_content_dir
-				$archive->extract_one_file_to( WP_CONTENT_DIR, array(
-					AI1WM_PACKAGE_NAME,
-					AI1WM_DATABASE_NAME,
-				) );
+
+				// Extract a file from archive to WP_CONTENT_DIR
+				if ( ( $content_offset = $archive->extract_one_file_to( WP_CONTENT_DIR, array( AI1WM_PACKAGE_NAME, AI1WM_DATABASE_NAME ), $content_offset, 3 ) ) ) {
+
+					// Set progress
+					if ( ( $sub_progress = ( $content_offset / $archive->get_current_filesize() ) ) < 1 ) {
+						$progress += $sub_progress;
+					}
+
+					// Set progress
+					Ai1wm_Status::set( array(
+						'type'    => 'info',
+						'message' => sprintf( __( 'Restoring %d files...<br />%.2f%% complete', AI1WM_PLUGIN_NAME ), $total, $progress ),
+					) );
+
+					// Set content offset
+					$this->args['content_offset'] = $content_offset;
+
+					// Set archive offset
+					$this->args['archive_offset'] = $archive_offset;
+
+					// Close the archive file
+					$archive->close();
+
+					// Redirect
+					return $this->route_to( 'content' );
+
+				}
+
+				// Set content offset
+				$content_offset = 0;
+
+				// Set archive offset
+				$archive_offset = $archive->get_file_pointer();
+
 			} catch ( Exception $e ) {
 				// Skip bad file permissions
 			}
@@ -222,25 +282,25 @@ abstract class Ai1wm_Import_Abstract {
 			// Increment processed files counter
 			$processed++;
 
-			// We are only extracting files for 5 seconds at a time
-			$time = microtime( true ) - $start;
-			if ( $time > 5 ) {
-				// More than 5 seconds have passed, break and do another request
+			// Time elapsed
+			if ( ( microtime( true ) - $start ) > 3 ) {
+				// More than 3 seconds have passed, break and do another request
 				$completed = false;
 				break;
 			}
 		}
 
-		// Set new file map pointer
-		$this->pointer( $archive->get_file_pointer() );
+		// Set content offset
+		$this->args['content_offset'] = $content_offset;
+
+		// Set archive offset
+		$this->args['archive_offset'] = $archive_offset;
+
+		// Set processed files
+		$this->args['processed'] = $processed;
 
 		// Close the archive file
 		$archive->close();
-
-		// Set progress
-		Ai1wm_Status::set( array(
-			'processed' => $processed,
-		) );
 
 		// Redirect
 		if ( $completed ) {
@@ -263,6 +323,7 @@ abstract class Ai1wm_Import_Abstract {
 
 		// Display progress
 		Ai1wm_Status::set( array(
+			'type'    => 'info',
 			'message' => __( 'Restoring database...', AI1WM_PLUGIN_NAME ),
 		) );
 
@@ -355,22 +416,6 @@ abstract class Ai1wm_Import_Abstract {
 	}
 
 	/**
-	 * Get filemap pointer or set new one
-	 *
-	 * @param  int $pointer Set new file pointer
-	 * @return int
-	 */
-	protected function pointer( $pointer = null ) {
-		if ( ! isset( $this->args['pointer'] ) ) {
-			$this->args['pointer'] = 0;
-		} else if ( ! is_null( $pointer ) ) {
-			$this->args['pointer'] = $pointer;
-		}
-
-		return (int) $this->args['pointer'];
-	}
-
-	/**
 	 * Route to method
 	 *
 	 * @param  string $method Name of the method
@@ -381,66 +426,12 @@ abstract class Ai1wm_Import_Abstract {
 		$this->args['method']     = $method;
 		$this->args['secret_key'] = get_site_option( AI1WM_SECRET_KEY, false, false );
 
-		// Check the status of the import, maybe we need to stop it
+		// Check the status of the export, maybe we need to stop it
 		if ( ! is_file( $this->storage()->archive() ) ) {
 			exit;
 		}
 
-		$headers = array();
-
-		// HTTP authentication
-		$auth_user     = get_site_option( AI1WM_AUTH_USER, false, false );
-		$auth_password = get_site_option( AI1WM_AUTH_PASSWORD, false, false );
-		if ( ! empty( $auth_user ) && ! empty( $auth_password ) ) {
-			$headers['Authorization'] = 'Basic ' . base64_encode( $auth_user . ':' . $auth_password );
-		}
-
-		// Resolve domain
-		$url      = admin_url( 'admin-ajax.php?action=ai1wm_import' );
-		$hostname = parse_url( $url, PHP_URL_HOST );
-		$port     = parse_url( $url, PHP_URL_PORT );
-		$ip       = gethostbyname( $hostname );
-
-		// Could not resolve host
-		if ( $hostname === $ip ) {
-
-			// Get server IP address
-			if ( ! empty( $_SERVER['SERVER_ADDR'] ) ) {
-				$ip = $_SERVER['SERVER_ADDR'];
-			} else if ( ! empty( $_SERVER['LOCAL_ADDR'] ) ) {
-				$ip = $_SERVER['LOCAL_ADDR'];
-			} else {
-				$ip = $_SERVER['SERVER_NAME'];
-			}
-
-			// Add IPv6 support
-			if ( filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) ) {
-				$ip = "[$ip]";
-			}
-
-			// Replace URL
-			$url = preg_replace( sprintf( '/%s/', preg_quote( $hostname, '-' ) ), $ip, $url, 1 );
-
-			// Set host header
-			if ( ! empty( $port ) ) {
-				$headers['Host'] = sprintf( '%s:%s', $hostname, $port );
-			} else {
-				$headers['Host'] = sprintf( '%s', $hostname );
-			}
-		}
-
 		// HTTP request
-		remove_all_filters( 'http_request_args' );
-		wp_remote_post(
-			$url,
-			array(
-				'timeout'    => apply_filters( 'ai1wm_http_timeout', 5 ),
-				'blocking'   => false,
-				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
-				'user-agent' => 'ai1wm',
-				'body'       => $this->args,
-				'headers'    => $headers,
-			)
-		);
+		Ai1wm_Http::get( admin_url( 'admin-ajax.php?action=ai1wm_import' ), $this->args );
 	}
 }

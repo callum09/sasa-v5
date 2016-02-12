@@ -38,7 +38,7 @@ if ( function_exists( 'gethostname' ) && in_array( gethostname(), $local ) ) {
 // ==================
 // = Plugin Version =
 // ==================
-define( 'AI1WM_VERSION', '4.3' );
+define( 'AI1WM_VERSION', '4.18' );
 
 // ===============
 // = Plugin Name =
@@ -63,7 +63,7 @@ define( 'AI1WM_LOG_FILE', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'error.log'
 // ===============
 // = Status Path =
 // ===============
-define( 'AI1WM_STATUS_FILE', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'status.html' );
+define( 'AI1WM_STATUS_FILE', AI1WM_STORAGE_PATH . DIRECTORY_SEPARATOR . 'status.js' );
 
 // ============
 // = Lib Path =
@@ -138,7 +138,7 @@ define( 'AI1WM_PACKAGE_NAME', 'package.json' );
 // ========================
 // = Archive Status Name  =
 // ========================
-define( 'AI1WM_STATUS_NAME', 'status.html' );
+define( 'AI1WM_STATUS_NAME', 'status.js' );
 
 // ========================
 // = Archive FileMap Name =
@@ -165,6 +165,16 @@ define( 'AI1WM_EXCEPTION_HANDLER', 'ai1wm_exception_handler' );
 // ========================
 define( 'AI1WM_MAINTENANCE_MODE', 'ai1wm_maintenance_mode' );
 
+// ==========
+// = URL IP =
+// ==========
+define( 'AI1WM_URL_IP', 'ai1wm_url_ip' );
+
+// =================
+// = URL Transport =
+// =================
+define( 'AI1WM_URL_TRANSPORT', 'ai1wm_url_transport' );
+
 // ==============
 // = Secret Key =
 // ==============
@@ -179,6 +189,11 @@ define( 'AI1WM_AUTH_USER', 'ai1wm_auth_user' );
 // = Auth Password =
 // =================
 define( 'AI1WM_AUTH_PASSWORD', 'ai1wm_auth_password' );
+
+// ==================
+// = Active Plugins =
+// ==================
+define( 'AI1WM_ACTIVE_PLUGINS', 'active_plugins' );
 
 // ================
 // = Messages Key =

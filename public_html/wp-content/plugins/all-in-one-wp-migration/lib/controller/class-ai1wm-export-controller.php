@@ -38,11 +38,15 @@ class Ai1wm_Export_Controller {
 	}
 
 	public static function export( $args = array() ) {
+
+		// Set error handler
+		@set_error_handler( 'Ai1wm_Log::error_handler' );
+
 		try {
 
 			// Set arguments
 			if ( empty( $args ) ) {
-				$args = $_REQUEST;
+				$args = ai1wm_urldecode( $_REQUEST );
 			}
 
 			// Set storage path

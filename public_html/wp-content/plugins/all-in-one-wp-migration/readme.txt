@@ -2,8 +2,8 @@
 Contributors: yani.iliev, bangelov, pimjitsawang
 Tags: db migration, migration, wordpress migration, db backup, db restore, website backup, website restore, website migration, website deploy, wordpress deploy, db backup, database export, database serialization, database find replace
 Requires at least: 3.3
-Tested up to: 4.3
-Stable tag: 4.3
+Tested up to: 4.4
+Stable tag: 4.18
 License: GPLv2 or later
 
 All-in-One WP Migration is the only tool that you will ever need to migrate a WordPress site.
@@ -28,15 +28,32 @@ All in One WP Plugin is the first plugin to offer true mobile experience on Word
 = Support for MySQL, PDO, MySQLi =
 * No matter what php mysql driver your webserver ships with, we support it.
 
-= Support WordPress v3.3 up to v4.2 =
-* We tested every WordPress version from `3.3` up to `4.2`.
+= Support WordPress v3.3 up to v4.x =
+* We tested every WordPress version from `3.3` up to `4.x`.
+
+= Supported hosting providers =
+* Bluehost
+* InMotion
+* Web Hosting Hub
+* Siteground
+* Pagely
+* Dreamhost
+* Justhost
+* GoDaddy
+* WP Engine
+* Site5
+* 1&1
+* Pantheon
+* [See the full list of supported providers here](https://help.servmask.com/knowledgebase/supported-hosting-providers/)
 
 = Migrate WordPress to most popular cloud services using our completely new extensions =
+* [Unlimited](https://servmask.com/products/unlimited-extension)
 * [Dropbox](https://servmask.com/products/dropbox-extension)
+* [Multisite](https://servmask.com/products/multisite-extension)
+* [FTP](https://servmask.com/products/ftp-extension)
 * [Google Drive](https://servmask.com/products/google-drive-extension)
 * [Amazon S3](https://servmask.com/products/amazon-s3-extension)
-* [Multisite](https://servmask.com/products/multisite-extension)
-* [Unlimited](https://servmask.com/products/unlimited-extension)
+* [URL](https://servmask.com/products/url-extension)
 * And many more to come
 
 = Contact us =
@@ -44,7 +61,8 @@ All in One WP Plugin is the first plugin to offer true mobile experience on Word
 * [Report a bug or request a feature](https://servmask.com/help)
 * [Find out more about us](https://servmask.com)
 
-[youtube http://www.youtube.com/watch?v=5FMzLf9a4Dc]
+[youtube http://www.youtube.com/watch?v=BpWxCeUWBOk]
+[youtube http://www.youtube.com/watch?v=mRp7qTFYKgs]
 
 == Installation ==
 1. Upload the `all-in-one-wp-migration` folder to the `/wp-content/plugins/` directory
@@ -57,6 +75,39 @@ All in One WP Plugin is the first plugin to offer true mobile experience on Word
 3. Plugin Menu
 
 == Changelog ==
+= 4.18 =
+* Fixed an issue with large media files
+* Fixed an issue with status file being cached
+
+= 4.17 =
+* Set "Tested up to" WordPress 4.4
+
+= 4.16 =
+* Fix an issue with the transport layer on export/import
+
+= 4.15 =
+* Fix an issue with resovling mechanism on export/import
+
+= 4.14 =
+* Fix an issue with database import
+
+= 4.13 =
+* Add new mechanism for resolving HTTP requests
+
+= 4.12 =
+* Fix an issue with Google Drive extension
+
+= 4.11 =
+* Fix content filters on export
+
+= 4.10 =
+* Add HTTPS URL replacement
+* Fix an issue when PDO is not available
+
+= 4.6 =
+* Fix an issue when the plugin was getting stuck on "Done creating an empty archive"
+* Fix an issue when the plugin was getting stuck during import
+
 = 4.3 =
 * Add URL extension support
 * Filter "mu-plugins" directory if "Do not export plugins (files)" is checked
